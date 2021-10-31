@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block container %}
+<table class="table">
+    <tr>
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">ID</th>
+                
+                <th scope="col">Book Name</th>
+                <th scope="col">Author Name</th>
+                {% if request.user.is_authenticated %}
+                <th scope='col'> Action</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in books %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                
+
+                <td>{{book.book_name}}</td>
+                <td>{{book.author_name}}</td>
+                {% if request.user.is_authenticated %}
+                <td>
+                    <a class="btn btn-primary" href="{% url 'book-update' book.id %}">Edit</a>
+                    <a class="btn btn-danger" href="{% url 'book-delete' book.id %}">Delete</a>
+
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+
+{% endblock %}
